@@ -1,0 +1,739 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Project page for BodyFlow.">
+  <title>BodyFlow</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&amp;family=Source+Sans+3:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/academicons/1.9.4/css/academicons.min.css">
+  <style>
+    :root {
+      --bg: #f4f7f3;
+      --surface: #ffffff;
+      --surface-soft: #f8fbf8;
+      --paper: #edf5f1;
+      --paper-strong: #dfeae5;
+      --text: #162126;
+      --muted: #5d6970;
+      --line: #d8e4de;
+      --link: #0c766e;
+      --primary: #0c766e;
+      --primary-deep: #084f4a;
+      --primary-soft: #dcefeb;
+      --accent: #c98450;
+      --accent-soft: #f4e7da;
+      --dark: #121b21;
+      --shadow: 0 18px 44px rgba(18, 27, 33, 0.08);
+      --shadow-soft: 0 10px 26px rgba(18, 27, 33, 0.055);
+      --radius: 8px;
+      --container: 1040px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 12% 0%, rgba(12, 118, 110, 0.12), transparent 28%),
+        radial-gradient(circle at 92% 9%, rgba(201, 132, 80, 0.14), transparent 24%),
+        linear-gradient(180deg, #fbfcfa 0%, var(--bg) 42%, #eef4ef 100%);
+      font-family: "Source Sans 3", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      letter-spacing: 0;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      content: "";
+      background:
+        linear-gradient(90deg, rgba(12, 118, 110, 0.045) 1px, transparent 1px),
+        linear-gradient(180deg, rgba(12, 118, 110, 0.04) 1px, transparent 1px);
+      background-size: 56px 56px;
+      mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.78), transparent 78%);
+      pointer-events: none;
+    }
+
+    a {
+      color: var(--link);
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    .container {
+      width: calc(100vw - 2rem);
+      max-width: var(--container);
+      margin: 0 auto;
+    }
+
+    .hero {
+      position: relative;
+      padding: 4.9rem 0 2.35rem;
+      text-align: center;
+    }
+
+    .hero::after {
+      width: 72px;
+      height: 3px;
+      display: block;
+      margin: 1.7rem auto 0;
+      border-radius: 999px;
+      background: linear-gradient(90deg, var(--primary), var(--accent));
+      content: "";
+    }
+
+    .venue-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      min-height: 34px;
+      margin-bottom: 1rem;
+      padding: 0.34rem 0.78rem;
+      border: 1px solid rgba(12, 118, 110, 0.18);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.72);
+      color: var(--primary-deep);
+      box-shadow: var(--shadow-soft);
+      font-size: 0.86rem;
+      font-weight: 800;
+      text-transform: uppercase;
+    }
+
+    .venue-pill i {
+      color: var(--accent);
+    }
+
+    .title {
+      max-width: 1040px;
+      margin: 0 auto 1rem;
+      font-family: "Sora", sans-serif;
+      font-size: clamp(1.9rem, 3.25vw, 2.65rem);
+      line-height: 1.12;
+      font-weight: 800;
+      overflow-wrap: anywhere;
+    }
+
+    .title-brand {
+      color: var(--primary-deep);
+    }
+
+    .title-line {
+      display: block;
+      white-space: nowrap;
+    }
+
+    .subtitle {
+      max-width: 760px;
+      margin: 0 auto 1rem;
+      color: #2f3d44;
+      font-size: clamp(1.15rem, 2vw, 1.45rem);
+      line-height: 1.55;
+      font-weight: 500;
+    }
+
+    .authors {
+      margin: 1.1rem auto 0;
+      max-width: 820px;
+      color: #334047;
+      font-size: 1.05rem;
+      line-height: 1.75;
+      overflow-wrap: anywhere;
+    }
+
+    .affiliation {
+      display: flex;
+      flex-wrap: nowrap;
+      justify-content: center;
+      gap: 1rem;
+      margin-top: 0.55rem;
+      color: var(--muted);
+      font-size: 0.98rem;
+      line-height: 1.65;
+      overflow-wrap: anywhere;
+    }
+
+    .affiliation > div {
+      white-space: nowrap;
+    }
+
+    .logo-row {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1rem;
+      margin: 1.25rem 0 1.45rem;
+    }
+
+    .logo-placeholder {
+      width: 132px;
+      height: 50px;
+      display: grid;
+      place-items: center;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: rgba(255, 255, 255, 0.76);
+      color: var(--primary-deep);
+      box-shadow: var(--shadow-soft);
+      font-size: 0.82rem;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+
+    .button-row {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 0.75rem;
+      margin-top: 1rem;
+    }
+
+    .resource-button {
+      min-height: 42px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      padding: 0.68rem 1rem;
+      border-radius: 999px;
+      background: var(--dark);
+      color: #ffffff;
+      font-weight: 700;
+      text-decoration: none;
+      box-shadow: 0 12px 24px rgba(18, 27, 33, 0.16);
+      transition: background 0.18s ease, transform 0.18s ease;
+    }
+
+    .resource-button:hover {
+      background: var(--primary-deep);
+      transform: translateY(-1px);
+      text-decoration: none;
+    }
+
+    .resource-button:nth-child(1),
+    .resource-button:nth-child(3) {
+      background: var(--primary-deep);
+    }
+
+    .resource-button:nth-child(1):hover,
+    .resource-button:nth-child(3):hover {
+      background: #063b37;
+    }
+
+    .placeholder {
+      position: relative;
+      width: 100%;
+      display: grid;
+      place-items: center;
+      overflow: hidden;
+      border: 1px solid rgba(12, 118, 110, 0.18);
+      border-radius: var(--radius);
+      background:
+        linear-gradient(135deg, rgba(8, 79, 74, 0.88), rgba(12, 118, 110, 0.66) 42%, rgba(201, 132, 80, 0.32)),
+        repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.08) 0 1px, transparent 1px 16px);
+      color: rgba(255, 255, 255, 0.78);
+      text-align: center;
+      box-shadow: var(--shadow);
+    }
+
+    .placeholder::before {
+      content: "";
+      position: absolute;
+      inset: 12px;
+      border: 1px dashed rgba(255, 255, 255, 0.34);
+      border-radius: calc(var(--radius) - 2px);
+      pointer-events: none;
+    }
+
+    .placeholder::after {
+      position: absolute;
+      inset: 0;
+      content: "";
+      background:
+        radial-gradient(circle at 22% 72%, rgba(255, 255, 255, 0.18), transparent 15%),
+        radial-gradient(circle at 70% 28%, rgba(255, 255, 255, 0.16), transparent 13%),
+        linear-gradient(130deg, transparent 0 28%, rgba(255, 255, 255, 0.16) 28.4% 29%, transparent 29.4% 44%, rgba(255, 255, 255, 0.14) 44.4% 45%, transparent 45.4% 100%);
+      pointer-events: none;
+    }
+
+    .placeholder strong {
+      position: relative;
+      z-index: 1;
+      display: block;
+      max-width: calc(100% - 2rem);
+      color: #ffffff;
+      font-size: 1.05rem;
+      font-weight: 800;
+      overflow-wrap: anywhere;
+    }
+
+    .placeholder span {
+      position: relative;
+      z-index: 1;
+      display: block;
+      max-width: calc(100% - 2rem);
+      margin-top: 0.35rem;
+      font-size: 0.92rem;
+      overflow-wrap: anywhere;
+    }
+
+    .video-frame {
+      width: 100%;
+      overflow: hidden;
+      border: 1px solid rgba(12, 118, 110, 0.18);
+      border-radius: var(--radius);
+      background: #0f181d;
+      box-shadow: var(--shadow);
+    }
+
+    .video-frame video {
+      width: 100%;
+      display: block;
+      aspect-ratio: 16 / 9;
+      object-fit: cover;
+    }
+
+    .teaser {
+      margin: 0 auto 2.85rem;
+    }
+
+    .teaser .placeholder {
+      min-height: 420px;
+      aspect-ratio: 16 / 9;
+    }
+
+    .caption {
+      max-width: 820px;
+      margin: 0.85rem auto 0;
+      color: var(--muted);
+      font-size: 0.96rem;
+      line-height: 1.68;
+      text-align: center;
+      overflow-wrap: anywhere;
+    }
+
+    section {
+      margin: 0 0 1.1rem;
+      padding: 2.45rem 1.75rem;
+      border: 1px solid rgba(216, 228, 222, 0.88);
+      border-radius: var(--radius);
+      background: rgba(255, 255, 255, 0.72);
+      box-shadow: var(--shadow-soft);
+    }
+
+    h2 {
+      margin: 0 0 1.15rem;
+      font-family: "Sora", sans-serif;
+      font-size: clamp(1.7rem, 3vw, 2.3rem);
+      line-height: 1.18;
+      text-align: center;
+    }
+
+    h2::after {
+      width: 46px;
+      height: 3px;
+      display: block;
+      margin: 0.72rem auto 0;
+      border-radius: 999px;
+      background: linear-gradient(90deg, var(--primary), var(--accent));
+      content: "";
+    }
+
+    h3 {
+      margin: 1.45rem 0 0.55rem;
+      font-size: 1.34rem;
+      line-height: 1.28;
+    }
+
+    p {
+      margin: 0 0 1rem;
+      color: #303d43;
+      font-size: 1.05rem;
+      line-height: 1.75;
+    }
+
+    .text-block {
+      max-width: 880px;
+      margin: 0 auto;
+    }
+
+    .text-block p {
+      text-align: justify;
+    }
+
+    .insight-list {
+      max-width: 820px;
+      margin: 1.1rem auto 0;
+      padding-left: 1.2rem;
+      color: #303d43;
+      font-size: 1.04rem;
+      line-height: 1.75;
+    }
+
+    .figure {
+      margin-top: 1.4rem;
+    }
+
+    .figure .placeholder {
+      min-height: 300px;
+      aspect-ratio: 16 / 7;
+    }
+
+    .split {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 1rem;
+      margin-top: 1.25rem;
+    }
+
+    .split .placeholder {
+      min-height: 230px;
+      aspect-ratio: 16 / 9;
+    }
+
+    .table-wrap {
+      overflow-x: auto;
+      margin-top: 1.15rem;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: #ffffff;
+      box-shadow: var(--shadow-soft);
+    }
+
+    table {
+      width: 100%;
+      min-width: 760px;
+      border-collapse: collapse;
+    }
+
+    th,
+    td {
+      padding: 0.85rem 0.95rem;
+      border-bottom: 1px solid var(--line);
+      text-align: center;
+      font-size: 0.96rem;
+    }
+
+    th:first-child,
+    td:first-child {
+      text-align: left;
+    }
+
+    thead {
+      background: var(--paper);
+      color: var(--primary-deep);
+    }
+
+    tbody tr:last-child td {
+      border-bottom: none;
+    }
+
+    tbody tr:nth-child(even) {
+      background: #fbfcfd;
+    }
+
+    pre {
+      margin: 1rem 0 0;
+      padding: 1.2rem;
+      overflow-x: auto;
+      border-radius: var(--radius);
+      background: #121b21;
+      color: #eef7f4;
+      font-size: 0.94rem;
+      line-height: 1.65;
+      box-shadow: var(--shadow-soft);
+    }
+
+    .footer {
+      padding: 1.6rem 0 2.4rem;
+      color: var(--muted);
+      text-align: center;
+      font-size: 0.92rem;
+      line-height: 1.6;
+    }
+
+    @media (max-width: 720px) {
+      .hero {
+        padding-top: 3.2rem;
+      }
+
+      .title {
+        font-size: clamp(1.42rem, 5.4vw, 1.78rem);
+        line-height: 1.12;
+      }
+
+      .title-line {
+        white-space: normal;
+      }
+
+      .button-row {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 0.65rem;
+      }
+
+      .resource-button {
+        width: 100%;
+        min-width: 0;
+        padding-right: 0.75rem;
+        padding-left: 0.75rem;
+        font-size: 0.95rem;
+      }
+
+      .teaser .placeholder {
+        min-height: 240px;
+      }
+
+      .figure .placeholder {
+        min-height: 220px;
+        aspect-ratio: 4 / 3;
+      }
+
+      .split {
+        grid-template-columns: 1fr;
+      }
+
+      .text-block p {
+        text-align: left;
+      }
+    }
+
+    @media (max-width: 430px) {
+      .container {
+        width: calc(100vw - 1rem);
+      }
+
+      .hero {
+        padding-top: 2.8rem;
+      }
+
+      .title {
+        font-size: clamp(1.3rem, 5.7vw, 1.58rem);
+      }
+
+      .subtitle,
+      .authors,
+      p {
+        font-size: 0.98rem;
+      }
+
+      .affiliation {
+        flex-wrap: wrap;
+        gap: 0.25rem 0.8rem;
+      }
+
+      .logo-placeholder {
+        width: calc(50% - 0.5rem);
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="container">
+    <header class="hero">
+      <h1 class="title">
+        <span class="title-line"><span class="title-brand">BodyFlow</span>:Cross-Embodiment Visual Navigation via</span>
+        <span class="title-line">Morphology-Conditioned Flow Matching</span>
+      </h1>
+
+      <div class="authors">
+        <div class="author-row">
+          <span><a href="#">Yong Du</a><sup>1,</sup>,</span>
+          <span><a href="#">Jituo Li</a><sup>1,†</sup>,</span>
+          <span><a href="#">Jialu Zhang</a><sup>1,</sup></span>
+          <span><a href="#">Shunwang Sun</a><sup>1,</sup>,</span>
+          <span><a href="#">Mingqian Liang</a><sup>1,</sup>,</span>
+        </div>
+        <div class="author-row">
+          <span><a href="#">Xinqi Liu</a><sup>2,</sup>,</span>
+          <!-- <span><a href="#">Huixu Dong</a><sup>1,</sup>,</span> -->
+          <span><a href="#">Guodong Lu</a><sup>1</sup></span>
+        </div>
+      </div>
+      <div class="affiliation">
+        <div><sup>1</sup> Zhejiang University</div>
+        <div><sup>2</sup> Hunan University</div>
+        <div><sup>†</sup>Corresponding author</div>
+      </div>
+
+      <div class="button-row" aria-label="Project resources">
+        <a class="resource-button" href="#"><i class="ai ai-arxiv" aria-hidden="true"></i> arXiv</a>
+        <a class="resource-button" href="#"><i class="fab fa-github" aria-hidden="true"></i> Code</a>
+        <a class="resource-button" href="#"><i class="fas fa-database" aria-hidden="true"></i> Data</a>
+      </div>
+    </header>
+
+    <div class="teaser">
+      <div class="video-frame">
+        <video controls playsinline preload="metadata" aria-label="BodyFlow introduction video">
+          <source src="video/introduction.mp4" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+      </div>
+      <p class="caption">
+        BodyFlow conditions navigation on robot morphology so that the same visual observation can lead
+        to body-feasible actions across different embodiments.
+      </p>
+    </div>
+
+    <section id="abstract">
+      <h2>Abstract</h2>
+      <div class="text-block">
+        <p>
+          In complex real-world environments, existing visual navigation foundation models often suffer from action ambiguity due to their lack of explicit awareness of robot embodiment. Given the same visual observation, robots with different geometries and kinematic constraints may require substantially different safe and feasible trajectories. To address this issue, we propose BodyFlow, a morphology-conditioned continuous generative framework for cross-embodiment visual navigation. BodyFlow constructs a large-scale morphology-conditioned cross-embodiment visual navigation dataset and parameterizes future trajectories as control points of continuous Bézier curves, yielding a low-dimensional, smooth, and analytically tractable action space. Furthermore, BodyFlow uses Morphology-Conditioned Flow Matching to learn a continuous generative process from visual observations to trajectory distributions. Robot geometry and kinematic constraints are explicitly incorporated into the trajectory generation model as conditioning information. To improve trajectory safety, BodyFlow uses a morphology-conditioned safety evaluator together with differentiable guidance from a distance energy field to guide trajectory generation. The action flow field is further refined in simulation through reinforcement-learning-based residual fine-tuning, enabling closed-loop correction of generated trajectories. Experimental results show that BodyFlow enables a single policy to support diverse robot embodiments, including wheeled, quadruped, and humanoid robots, while achieving higher navigation success rates and stronger obstacle avoidance performance in zero-shot navigation. 
+        </p>
+      </div>
+    </section>
+
+    <section id="insight">
+      <h2>Key Insight: From Body-Agnostic Actions to Body-Aware Flow</h2>
+      <div class="text-block">
+        <p>
+          BodyFlow treats morphology as an explicit condition instead of an implicit deployment detail.
+          This makes action prediction less ambiguous when multiple robots observe the same scene but
+          require different motion envelopes.
+        </p>
+        <ol class="insight-list">
+          <li>Visual observations provide scene context and obstacle layout.</li>
+          <li>Body descriptors encode platform-specific constraints and feasible motion envelopes.</li>
+          <li>Motion-flow prediction preserves trajectory continuity for real-time robot control.</li>
+        </ol>
+      </div>
+      <div class="figure">
+        <div class="placeholder" role="img" aria-label="BodyFlow framework figure placeholder">
+          <div>
+            <strong>Framework Figure Placeholder</strong>
+            <span>Observation + embodiment tokens + motion-flow policy + action output.</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="ingredient-1">
+      <h2>Ingredient 1: Embodiment-Aware Modeling</h2>
+      <div class="text-block">
+        <p>
+          The policy receives robot-specific information alongside visual observations. This helps the
+          model separate navigational intent from physical feasibility, especially in narrow passages,
+          sharp turns, and cluttered indoor scenes.
+        </p>
+      </div>
+      <div class="figure">
+        <div class="placeholder" role="img" aria-label="Embodiment-aware modeling placeholder">
+          <div>
+            <strong>Method Detail Placeholder</strong>
+            <span>Use this slot for the final architecture diagram.</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="ingredient-2">
+      <h2>Ingredient 2: Smooth Motion Flow</h2>
+      <div class="text-block">
+        <p>
+          Rather than predicting isolated commands, BodyFlow can represent future motion as a structured
+          flow. This keeps adjacent action chunks consistent and reduces abrupt changes during closed-loop
+          navigation.
+        </p>
+      </div>
+      <div class="split">
+        <div class="placeholder" role="img" aria-label="Training curve placeholder">
+          <div>
+            <strong>Training Curve Placeholder</strong>
+            <span>Success, reward, or loss plot.</span>
+          </div>
+        </div>
+        <div class="placeholder" role="img" aria-label="Trajectory visualization placeholder">
+          <div>
+            <strong>Trajectory Placeholder</strong>
+            <span>Strobe, path, or rollout comparison.</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="ingredient-3">
+      <h2>Ingredient 3: Cross-Body Generalization</h2>
+      <div class="text-block">
+        <p>
+          The final evaluation should compare BodyFlow with ablations that remove morphology
+          conditioning, motion-flow smoothing, or history feedback. The table below is intentionally
+          left as a clean placeholder for the final numbers.
+        </p>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Method</th>
+              <th>Steps</th>
+              <th>Seen Body</th>
+              <th>Unseen Body</th>
+              <th>Cluttered Scene</th>
+              <th>Real World</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>BodyFlow</strong></td>
+              <td>TBD</td>
+              <td>TBD</td>
+              <td>TBD</td>
+              <td>TBD</td>
+              <td>TBD</td>
+            </tr>
+            <tr>
+              <td>w/o morphology</td>
+              <td>TBD</td>
+              <td>TBD</td>
+              <td>TBD</td>
+              <td>TBD</td>
+              <td>TBD</td>
+            </tr>
+            <tr>
+              <td>w/o flow prior</td>
+              <td>TBD</td>
+              <td>TBD</td>
+              <td>TBD</td>
+              <td>TBD</td>
+              <td>TBD</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="bibtex">
+      <h2>BibTeX</h2>
+      <pre><code>@article{bodyflow2026,
+  title={BodyFlow: Embodiment-Aware Motion Flow for Cross-Robot Navigation},
+  author={Author One and Author Two and Author Three and Author Four},
+  journal={arXiv preprint arXiv:XXXX.XXXXX},
+  year={2026}
+}</code></pre>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <p>Static project page template for BodyFlow. Replace placeholders with final paper assets before release.</p>
+    </div>
+  </footer>
+</body>
+</html>
