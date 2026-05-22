@@ -485,6 +485,14 @@
       outline-offset: 2px;
     }
 
+    .video-count {
+      min-width: 54px;
+      color: var(--muted);
+      font-size: 0.92rem;
+      font-weight: 700;
+      text-align: center;
+    }
+
     pre {
       margin: 1rem 0 0;
       padding: 1.2rem;
@@ -645,7 +653,7 @@
       <h2>Abstract</h2>
       <div class="text-block abstract-block">
         <p>
-          In complex real-world environments, existing visual navigation foundation models often suffer from action ambiguity due to their limited modeling of robot embodiment. Given the same visual observation and goal condition, robots with different body dimensions and kinematic limits may require substantially different safe and feasible trajectories. To address this issue, we propose BodyFlow, a morphology-conditioned continuous generative framework for cross-embodiment visual navigation. BodyFlow explicitly incorporates robot morphology into trajectory generation and learns embodiment-adaptive trajectory distributions from large-scale cross-embodiment navigation data. It performs flow-based generation in a B&eacute;zier control-point space, where predicted control points are interpolated into executable waypoints to reduce the dimensionality of the generative action space and encourage smooth trajectories. To improve body-level safety, BodyFlow further models body-contour-aware trajectory clearance and uses differentiable safety guidance to steer generated trajectories away from morphology-dependent collision risks. The generated action flow is refined through closed-loop residual fine-tuning in simulation, enabling the policy to adapt to physical interaction feedback while preserving the pretrained visual-navigation prior. Experiments in both simulation and real-world environments show that BodyFlow enables a single policy to support diverse robot embodiments, including wheeled, quadruped, and humanoid robots, while improving obstacle avoidance under different morphology conditions.
+          In complex real-world environments, existing visual navigation foundation models often suffer from action ambiguity due to their limited modeling of robot embodiment. Given the same visual observation and goal condition, robots with different body sizes and kinematic limits may require substantially different safe and feasible trajectories. To address this issue, we propose BodyFlow, a morphology-conditioned continuous generative framework for cross-embodiment visual navigation. BodyFlow explicitly incorporates robot morphology into trajectory generation and learns embodiment-adaptive trajectory distributions from large-scale cross-embodiment navigation data. It performs flow-based generation in a B\'ezier control-point space, where predicted control points are interpolated into executable waypoints to reduce the dimensionality of the generative action space and encourage smooth trajectories. To improve body-level safety, BodyFlow models the safety margin along a trajectory using the full robot contour to reduce morphology-dependent collision risks. The action flow field is further refined in simulation through closed-loop reinforcement-learning-based residual fine-tuning, enabling the policy to adapt to physical interactions while preserving the pretrained visual-navigation capability. Experiments in both simulation and real-world environments show that BodyFlow enables a single policy to support diverse robot embodiments, including wheeled, quadruped, and humanoid robots, while improving obstacle avoidance under different morphology conditions.
         </p>
       </div>
     </section>
@@ -675,6 +683,7 @@
           </div>
           <div class="video-carousel" aria-label="Simulation wheeled robot videos">
             <button class="video-nav" type="button" data-direction="-1" aria-label="Previous video"><i class="fas fa-chevron-left" aria-hidden="true"></i></button>
+            <span class="video-count">1 / 3</span>
             <button class="video-nav" type="button" data-direction="1" aria-label="Next video"><i class="fas fa-chevron-right" aria-hidden="true"></i></button>
           </div>
         </div>
@@ -688,6 +697,7 @@
           </div>
           <div class="video-carousel" aria-label="Simulation quadruped robot videos">
             <button class="video-nav" type="button" data-direction="-1" aria-label="Previous video"><i class="fas fa-chevron-left" aria-hidden="true"></i></button>
+            <span class="video-count">1 / 3</span>
             <button class="video-nav" type="button" data-direction="1" aria-label="Next video"><i class="fas fa-chevron-right" aria-hidden="true"></i></button>
           </div>
         </div>
@@ -701,6 +711,7 @@
           </div>
           <div class="video-carousel" aria-label="Simulation humanoid robot videos">
             <button class="video-nav" type="button" data-direction="-1" aria-label="Previous video"><i class="fas fa-chevron-left" aria-hidden="true"></i></button>
+            <span class="video-count">1 / 3</span>
             <button class="video-nav" type="button" data-direction="1" aria-label="Next video"><i class="fas fa-chevron-right" aria-hidden="true"></i></button>
           </div>
         </div>
@@ -720,6 +731,7 @@
           </div>
           <div class="video-carousel" aria-label="Real-world indoor navigation videos">
             <button class="video-nav" type="button" data-direction="-1" aria-label="Previous video"><i class="fas fa-chevron-left" aria-hidden="true"></i></button>
+            <span class="video-count">1 / 6</span>
             <button class="video-nav" type="button" data-direction="1" aria-label="Next video"><i class="fas fa-chevron-right" aria-hidden="true"></i></button>
           </div>
         </div>
@@ -733,6 +745,7 @@
           </div>
           <div class="video-carousel" aria-label="Real-world cluttered scene videos">
             <button class="video-nav" type="button" data-direction="-1" aria-label="Previous video"><i class="fas fa-chevron-left" aria-hidden="true"></i></button>
+            <span class="video-count">1 / 6</span>
             <button class="video-nav" type="button" data-direction="1" aria-label="Next video"><i class="fas fa-chevron-right" aria-hidden="true"></i></button>
           </div>
         </div>
@@ -746,6 +759,7 @@
           </div>
           <div class="video-carousel" aria-label="Real-world cross-embodiment transfer videos">
             <button class="video-nav" type="button" data-direction="-1" aria-label="Previous video"><i class="fas fa-chevron-left" aria-hidden="true"></i></button>
+            <span class="video-count">1 / 2</span>
             <button class="video-nav" type="button" data-direction="1" aria-label="Next video"><i class="fas fa-chevron-right" aria-hidden="true"></i></button>
           </div>
         </div>
@@ -776,6 +790,7 @@
         const videos = videoGroup.dataset.videos.split("|");
         const video = videoGroup.querySelector(".switch-video");
         const source = video.querySelector("source");
+        const count = videoGroup.querySelector(".video-count");
         const direction = Number(button.dataset.direction);
         const currentIndex = Number(videoGroup.dataset.videoIndex || 0);
         const nextIndex = (currentIndex + direction + videos.length) % videos.length;
@@ -786,6 +801,7 @@
         }
 
         videoGroup.dataset.videoIndex = String(nextIndex);
+        count.textContent = `${nextIndex + 1} / ${videos.length}`;
         video.pause();
         source.setAttribute("src", nextVideo);
         video.load();
